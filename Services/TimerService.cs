@@ -17,6 +17,9 @@ namespace Tomatoro.Services
         private void EmCadaTique(object? sender, EventArgs e)
         {
             DuracaoDoTimer--;
+
+            TimerAtualizado?.Invoke(this, EventArgs.Empty);
+
             if (DuracaoDoTimer == 0)
             {
                 _timer.Stop();
@@ -39,6 +42,7 @@ namespace Tomatoro.Services
         }
 
         public event EventHandler TimerFinalizado;
+        public event EventHandler TimerAtualizado;
 
         public TimerService(int DuracaoInicial) //Construtor
         {
