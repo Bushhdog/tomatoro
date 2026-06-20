@@ -16,8 +16,7 @@
 
         <TextBlock Text="{Binding TempoFormatado}" />
         
-        <Button Command="{Binding IniciarCommand}" Content="Iniciar" />
-        <Button Command="{Binding PausarCommand}" Content="Pausar" />
+        <Button Command="{Binding AlternarCommand}" Content="{Binding TextoBotaoPrincipal}" />
         <Button Command="{Binding ResetarCommand}" Content="Resetar" />
 
     </StackPanel>

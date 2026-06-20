@@ -8,6 +8,8 @@ namespace Tomatoro.ViewModels
     {
         private TimerService _TimerService;
         public event PropertyChangedEventHandler? PropertyChanged;
+        public bool EstaRodando => _TimerService.EstaRodando;
+        public string TextoBotaoPrincipal => EstaRodando ? "Pausar" : "Iniciar"; //Para fazer a troca do botão na interface
 
         protected void OnPropertyChanged(string propertyName)
         {
@@ -19,11 +21,30 @@ namespace Tomatoro.ViewModels
             OnPropertyChanged("TempoFormatado");
         }
 
+        private void AlternarTimer()
+        {
+            if (EstaRodando)
+            {
+                _TimerService.PararTimer();
+            } 
+            else
+            {
+                _TimerService.IniciarTimer();
+            }
+        }
+
         public string TempoFormatado => $"{_TimerService.DuracaoDoTimer / 60:D2}:{_TimerService.DuracaoDoTimer % 60:D2}";
 
-        public ICommand IniciarCommand => new RelayCommand(() => _TimerService.IniciarTimer()); //RelayCommand
-        public ICommand PausarCommand => new RelayCommand(() => _TimerService.PararTimer());
-        public ICommand ResetarCommand => new RelayCommand(() => _TimerService.ResetarTimer());
+
+        public ICommand AlternarCommand => new RelayCommand(() => {
+            AlternarTimer();
+            OnPropertyChanged("TextoBotaoPrincipal");
+        });
+        
+        public ICommand ResetarCommand => new RelayCommand(() => {
+            _TimerService.ResetarTimer();
+            OnPropertyChanged("TextoBotaoPrincipal");
+        });
 
         public MainViewModel() //Construtor
         {   

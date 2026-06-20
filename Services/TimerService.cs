@@ -10,6 +10,8 @@ namespace Tomatoro.Services
         public int NumPomodoros { get; set; }
         public bool TimerEmFoco { get; set; } 
         public int DuracaoDoTimer { get; set; } //em segundos
+
+        public bool EstaRodando => _timer.IsEnabled;
         
         private DispatcherTimer _timer;
         private int _TempoInicial { get; set; }
